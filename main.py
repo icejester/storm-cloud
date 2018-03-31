@@ -1,11 +1,13 @@
 # CircuitPython demo - NeoPixel
  
 import time
+import random
 import board
 import neopixel
  
 pixel_pin = board.D1
-num_pixels = 3
+num_pixels = 14
+SPEED = 2
  
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.3, auto_write=False)
  
@@ -39,31 +41,78 @@ def rainbow_cycle(wait):
             pixels[i] = wheel(rc_index & 255)
         pixels.show()
         time.sleep(wait)
- 
- 
+
+def burst(aPixel):
+    pixels[aPixel] = WHITE
+    time.sleep(0.0125)
+    pixels.show()
+    pixels[aPixel] = CYAN
+    time.sleep(0.0125)
+    pixels.show()
+    pixels[aPixel] = BLUE
+    time.sleep(0.0125)
+    pixels.show()
+    # pixels[aPixel] = LOWWHITE
+    # time.sleep(0.0125)
+    # pixels.show()
+
+def palletBurst(aPixel, aPallet):
+    for aColor in range (len(aPallet)):
+        #pixels[aPixel] = aPallet[aColor]
+        pixels[aPixel] = RED
+        time.sleep(2)
+        pixels.show
+
+# COLORS 
 RED = (255, 0, 0)
 YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
+WHITE = (255, 255, 255)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
+SKYBLUE = (135,206,250)
 PURPLE = (180, 0, 255)
- 
+BLACK = (0, 0, 0)
+LOWWHITE = (4, 4, 4)
+
+# COLOR PALLETS
+LIGHTNING = [WHITE, CYAN, SKYBLUE]
+
 while True:
-    pixels.fill(RED)
+    calmTime = random.random() / SPEED
+    aStrike = random.randrange(num_pixels) - 1
+    # burst(aStrike)
+    palletBurst(aStrike, LIGHTNING)
+    #pixels[1] = (255, 0, 255)
+    #time.sleep(2)
+    
+    #for aPixel in range(num_pixels):
+    #   # if pixel is low white
+    #   burst(aPixel)
+       
+       
+    #pixels.fill(WHITE)
+    #pixels.show()
+    #time.sleep(0.05)  # Increase or decrease to change the speed of the solid color change.
+    #pixels.fill(CYAN)
+    #pixels.show()
+    #time.sleep(.01)
+    #pixels.fill(BLUE)
+    #pixels.show()
+    #time.sleep(0.07)
+    
+    pixels.fill(LOWWHITE)
+    # pixels.fill(BLACK)
     pixels.show()
-    time.sleep(1)  # Increase or decrease to change the speed of the solid color change.
-    pixels.fill(GREEN)
-    pixels.show()
-    time.sleep(1)
-    pixels.fill(BLUE)
-    pixels.show()
-    time.sleep(1)
+    time.sleep(calmTime)
+    
+    
  
-    color_chase(RED, 0.1)  # Increase the number to slow down the color chase
-    color_chase(YELLOW, 0.1)
-    color_chase(GREEN, 0.1)
-    color_chase(CYAN, 0.1)
-    color_chase(BLUE, 0.1)
-    color_chase(PURPLE, 0.1)
+    # color_chase(RED, 0.1)  # Increase the number to slow down the color chase
+    # color_chase(YELLOW, 0.1)
+    # color_chase(GREEN, 0.1)
+    # color_chase(CYAN, 0.1)
+    # color_chase(BLUE, 0.1)
+    # color_chase(PURPLE, 0.1)
  
-    rainbow_cycle(0)  # Increase the number to slow down the rainbow
+    # rainbow_cycle(0)  # Increase the number to slow down the rainbow
