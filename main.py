@@ -7,7 +7,7 @@ import neopixel
  
 pixel_pin = board.D1
 num_pixels = 14
-SPEED = 2
+SPEED = .75
  
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.3, auto_write=False)
  
@@ -65,6 +65,22 @@ def palletBurst(aPixel, aPallet):
     pixels.show()
     time.sleep(0.0125)
 
+def multiPalletBurst(aPixel, aPallet):
+    #total duration of burst
+    burstDuration = .00125
+    
+    #how many colors in the pallet?
+    numColors = len(aPallet)
+    print('numColors is ', numColors)
+    miniBurst = burstDuration/numColors
+    print('  miniBurst is', miniBurst)
+    # for total number of colors in pallet, choose a random one
+    for i in range(numColors):
+        aColor = random.randint(0, numColors-1)
+        pixels[aPixel] = aPallet[aColor]
+        pixels.show()
+        time.sleep(burstDuration/numColors)
+    
 # COLORS 
 RED = (255, 0, 0)
 YELLOW = (255, 150, 0)
@@ -86,37 +102,9 @@ while True:
     calmTime = random.random() / SPEED
     aStrike = random.randrange(num_pixels)
     # burst(aStrike)
-    palletBurst(aStrike, LIGHTNING)
-    #pixels[1] = (255, 0, 255)
-    #time.sleep(2)
-    
-    #for aPixel in range(num_pixels):
-    #   # if pixel is low white
-    #   burst(aPixel)
-       
-       
-    #pixels.fill(WHITE)
-    #pixels.show()
-    #time.sleep(0.05)  # Increase or decrease to change the speed of the solid color change.
-    #pixels.fill(CYAN)
-    #pixels.show()
-    #time.sleep(.01)
-    #pixels.fill(BLUE)
-    #pixels.show()
-    #time.sleep(0.07)
-    
+    # palletBurst(aStrike, LIGHTNING)
+    multiPalletBurst(aStrike, FIRE)
+
     pixels.fill(LOWWHITE)
-    # pixels.fill(BLACK)
     pixels.show()
     time.sleep(calmTime)
-    
-    
- 
-    # color_chase(RED, 0.1)  # Increase the number to slow down the color chase
-    # color_chase(YELLOW, 0.1)
-    # color_chase(GREEN, 0.1)
-    # color_chase(CYAN, 0.1)
-    # color_chase(BLUE, 0.1)
-    # color_chase(PURPLE, 0.1)
- 
-    # rainbow_cycle(0)  # Increase the number to slow down the rainbow
