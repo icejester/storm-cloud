@@ -57,15 +57,18 @@ def burst(aPixel):
     # pixels.show()
 
 def palletBurst(aPixel, aPallet):
-    for aColor in range (len(aPallet)):
-        #pixels[aPixel] = aPallet[aColor]
-        pixels[aPixel] = RED
-        time.sleep(2)
-        pixels.show
+    # print('aPixel is ', aPixel)
+    # print('aPallet is ', aPallet)
+    aColor = random.randint(0, len(aPallet) -1)
+    # print('aColor is', aColor)
+    pixels[aPixel] = aPallet[aColor]
+    pixels.show()
+    time.sleep(0.0125)
 
 # COLORS 
 RED = (255, 0, 0)
 YELLOW = (255, 150, 0)
+ORANGE = (255,165,0)
 GREEN = (0, 255, 0)
 WHITE = (255, 255, 255)
 CYAN = (0, 255, 255)
@@ -76,11 +79,12 @@ BLACK = (0, 0, 0)
 LOWWHITE = (4, 4, 4)
 
 # COLOR PALLETS
-LIGHTNING = [WHITE, CYAN, SKYBLUE]
+LIGHTNING = [WHITE, CYAN, SKYBLUE, BLUE, PURPLE]
+FIRE = [RED, YELLOW, BLACK, ORANGE]
 
 while True:
     calmTime = random.random() / SPEED
-    aStrike = random.randrange(num_pixels) - 1
+    aStrike = random.randrange(num_pixels)
     # burst(aStrike)
     palletBurst(aStrike, LIGHTNING)
     #pixels[1] = (255, 0, 255)
