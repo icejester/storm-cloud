@@ -6,7 +6,7 @@ import board
 import neopixel
  
 pixel_pin = board.D1
-num_pixels = 14
+num_pixels = 15
 SPEED = 2
  
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.3, auto_write=False)
